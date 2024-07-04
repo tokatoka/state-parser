@@ -1,0 +1,12 @@
+[package]
+name = "state_parser"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+libafl = { path = "/home/toka/LibAFL/libafl", features = ["dump_state"] }
+serde = "1.0"
+postcard = "1.0"
+sha2 = "0.10.6"
+hex = "0.4.3"
+structopt = "0.3"
