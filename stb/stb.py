@@ -2,14 +2,20 @@
 import os
 import multiprocessing
 import config
+import sys
 
 MAX_TIME = 300
 FUZZER = "./stbi_read_fuzzer"
 RESULT_DIR_TEMPLATE = os.path.join(config.RESULTS_ROOT, "{}/stb/queue_power\,desyscall\,multi_machine/stbi_read_fuzzer/{}/")
 STATE_PARSER = "../state_parser"
 print(f"fuzzer is {FUZZER}")
+
+if sys.argv[1] == 'mm':
+    mms = ["mm"]
+else:
+    mms = ["no_mm"]
+
 trials = ["t0", "t1", "t2", "t3", "t4"]
-mms = ["mm", "no_mm"]
 def parse(log_file):
     with open(log_file) as f:
         all_lines = f.readlines()
@@ -47,7 +53,7 @@ def process_task(mm, trial, t, task_id):
 
 os.system("rm -rf task_*")
 
-tasks = [(mm, trial, t, i) for i, (mm, trial, t) in enumerate([(mm, trial, t) for mm in mms for trial in trials for t in range(0, MAX_TIME + 1, 30)])]
+tasks = [(mm, trial, t, i) for i, (mm, trial, t) in enumerate([(mm, trial, t) for mm in mms for trial in trials for t in range(60, MAX_TIME + 1, 60)])]
 res = dict()
 with multiprocessing.Pool() as pool:
     results = pool.starmap(process_task, tasks)
