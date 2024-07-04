@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 import os
 import multiprocessing
+import config
 
 MAX_TIME = 300
 FUZZER = "./string_to_double_fuzzer"
-RESULT_DIR_TEMPLATE = "/home/toka/scaling-libafl-paper/mm/2024-07-02_104552.771254/{}/double-conversion/queue_power\,desyscall\,multi_machine/string_to_double_fuzzer/{}/"
+RESULT_DIR_TEMPLATE = os.path.join(config.RESULTS_ROOT, "{}/double-conversion/queue_power\,desyscall\,multi_machine/string_to_double_fuzzer/{}/")
 STATE_PARSER = "../state_parser"
 print(f"fuzzer is {FUZZER}")
 trials = ["t0", "t1", "t2", "t3", "t4"]

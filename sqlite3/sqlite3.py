@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 import os
 import multiprocessing
+import config
 
 MAX_TIME = 300
 FUZZER = "./ossfuzz"
-RESULT_DIR_TEMPLATE = "/home/toka/scaling-libafl-paper/mm/2024-07-02_104552.771254/{}/sqlite3/queue_power\,desyscall\,multi_machine/ossfuzz/{}/"
+RESULT_DIR_TEMPLATE = os.path.join(config.RESULTS_ROOT, "{}/sqlite3/queue_power\,desyscall\,multi_machine/ossfuzz/{}/")
 STATE_PARSER = "../state_parser"
 print(f"fuzzer is {FUZZER}")
 trials = ["t0", "t1", "t2", "t3", "t4"]
@@ -34,8 +35,8 @@ def process_task(mm, trial, t, task_id):
     RESULT_DIR = RESULT_DIR_TEMPLATE.format(mm, trial)
     print(f"Processing {RESULT_DIR} in {task_dir}")
 
-    os.system(f"cd {task_dir} && ./state_parser -t {t} -w ./workdir -s {RESULT_DIR}")
-    os.system(f"cd {task_dir} && ./string_to_double_fuzzer --cores {task_id % multiprocessing.cpu_count()} > tmp.txt; tail -n 10 tmp.txt > log.txt")
+    os.system(f"cd {task_dir} && {STATE_PARSER} -t {t} -w ./workdir -s {RESULT_DIR}")
+    os.system(f"cd {task_dir} && {RESULT_DIR_TEMPLATE} --cores {task_id % multiprocessing.cpu_count()} > tmp.txt; tail -n 10 tmp.txt > log.txt")
 
     log_file = os.path.join(task_dir, "log.txt")
     name = mm + trial + str(t)
