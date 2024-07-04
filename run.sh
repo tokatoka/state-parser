@@ -2,32 +2,37 @@
 
 cd ./double-conversion
 ./double-conversion.py mm
+rm -rf task_*
 
-cd ./double-conversion
 ./double-conversion.py no_mm
+rm -rf task_*
 
 
 cd ../libhevc
 ./libhevc.py mm
+rm -rf task_*
 
-cd ../libhevc
 ./libhevc.py no_mm
+rm -rf task_*
 
 
 cd ../libxml2
 ./libxml2.py mm
+rm -rf task_*
 
-cd ../libxml2
 ./libxml2.py no_mm
+rm -rf task_*
 
 cd ../sqlite3
 ./sqlite3.py mm
+rm -rf task_*
 
-cd ../sqlite3
 ./sqlite3.py no_mm
+rm -rf task_*
 
 cd ../stb
 ./stb.py mm
+rm -rf task_*
 
-cd ../stb
 ./stb.py no_mm
+rm -rf task_*

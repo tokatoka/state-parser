@@ -1,1 +1,1 @@
-RESULTS_ROOT = "/home/rmalmain/2024-07-02_104552.771254"
+../config.py
